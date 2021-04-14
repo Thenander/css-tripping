@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000;
+}
+
+.wrapper {
+  animation-name: coloring;
+  animation-iteration-count: infinite;
+  animation-duration: 7s;
+}
+
+.balls {
+  position: relative;
+  height: 300px;
+  width: 300px;
+  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  animation-name: rotateAndResize;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+  animation-iteration-count: infinite;
+  animation-duration: 30s;
+
+  div {
+    margin: 10px;
+    width: 75px;
+    height: 75px;
+    border-radius: 75px;
+    background-color: blue;
+    opacity: 0;
+    animation-name: breathing;
+    animation-duration: 1.8s;
+    animation-timing-function: cubic-bezier(0.92, 0, 1, 1);
+    animation-iteration-count: infinite;
+    animation-delay: 0ms;
+
+    @for $i from 1 to 10 {
+      &:nth-child(#{$i}) {
+        filter: hue-rotate($i * 40deg);
+        animation-delay: $i * 0.2s;
+      }
+    }
+  }
+}
+
+@keyframes coloring {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes rotateAndResize {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  10% {
+    transform: rotate(730deg) scale(4);
+  }
+  50% {
+    transform: rotate(460deg) scale(0.64);
+  }
+  75% {
+    transform: rotate(210deg) scale(2.25);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes breathing {
+  from {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
